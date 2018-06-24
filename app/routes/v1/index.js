@@ -21,6 +21,14 @@ router.post('/add', async function(req, res) {
 	});
 });
 
+router.get('/all', async (req, res) => {
+	await Score.find({}).then(docs => {
+		res.json(docs);
+	}).catch(error => {
+		res.status(500).json({status: "bad", error: error});
+	});
+});
+
 router.get('/latest', async function(req, res) {
 	await Score.find({}).sort({score: -1}).limit(10).then(docs => {
 		console.log(JSON.stringify(docs));
